@@ -25,8 +25,6 @@ class LoginModel extends CI_Model
         if($get_data->num_rows())
         {
             return $get_data->row()->id;
-            
-
             // echo "data is there";
         }
         else

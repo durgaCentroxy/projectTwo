@@ -24,37 +24,45 @@ class Users extends CI_Controller
             }
             else
             {
-                echo "data is not there";
-            }
-            $username = $this->input->post('username');
-            $userpass = $this->input->post('password');
-            if($username && $userpass)
-            {
-                $this->load->model('LoginModel', 'lm');
-                $id = $this->lm->validateUser($username, $userpass);
-                $get_data = $this->db->where(['userName'=>$username, 'password'=>$userpass])
-                                ->get('users');
-                $q = $get_data->row()->status;
-                if($id && $q == 1)
-            {
-                echo $q;
-                exit;
-                // echo "data is there";
-                $this->session->set_userdata('id', $id);
-                // return redirect('admin/dashboard');
-                $this->load->view('users/user_dashboard1');
+                $username = $this->input->post('username');
+                $userpass = $this->input->post('password');
                 
-            }
-            elseif($id && $q == 0)
-            {
-                
-                // echo "data is there";
-                $this->session->set_userdata('id', $id);
-                // return redirect('admin/dashboard');
-                $this->load->view('users/user_dashboard0');
-                return $id;
-            }
-            }
+                if($username && $userpass)
+                {
+                    $this->load->model('LoginModel', 'lm');
+                    $id = $this->lm->validateUser($username, $userpass);
+                    $get_data = $this->db->where(['userName'=>$username, 'password'=>$userpass])
+                                    ->get('users');
+                    $q = $get_data->row()->status;
+                    if($id && $q == 1)
+                {
+                    
+                    // echo "data is there";
+                    $this->session->set_userdata('id', $id);
+                    $this->session->set_userdata('username', $username);
+                    // return redirect('admin/dashboard');
+                    $this->load->view('users/user_dashboard1');
+                    return $id;
+                    return $username;
+                    
+                }
+                elseif($id && $q == 0)
+                {
+                    
+                    // echo "data is there";
+                    $this->session->set_userdata('id', $id);
+                    $this->session->set_userdata('userpass', $userpass);
+                    // return redirect('admin/dashboard');
+                    $this->load->view('users/user_dashboard0');
+                    return $id;
+                    return $userpass;
+                }
+                }
+                else
+                {
+                    echo "failed";
+                }
+                }
         }
         else
         {

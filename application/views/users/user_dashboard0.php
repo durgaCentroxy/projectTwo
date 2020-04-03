@@ -3,8 +3,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="#menu-toggle" id="menu-toggle">welcome user0</a>
-                    <?php anchor('admin/login', 'Logout', 'class="link-class btn btn-danger", type="button"'); ?>
+                <a href="#menu-toggle" id="menu-toggle">welcome <?php echo $this->session->userdata('username'); echo $this->session->userdata('id');?></a>
+                    <?php if($this->session->userdata('id')):?>
+                    <a href="<?php base_url('admin/logout');?>" class="btn btn-danger float-right">Logout</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
